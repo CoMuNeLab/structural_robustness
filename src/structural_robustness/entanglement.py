@@ -51,14 +51,9 @@ def entanglement(G: nx.Graph, mode: str = 'mid') -> Dict:
     ent = {}
     for node in pbar(G.nodes()):
         G_i = G.copy()
-        k = G_i.degree[node]
         G_i.remove_node(node)
 
         S_2 = entropy_func(G_i, beta)
-        G_star = nx.star_graph(k + 1)
-        S_star = compute_entropy(G_star, beta)
-
-        S_2 += S_star
         ent[node] = S_2 - S_1
 
     return ent
